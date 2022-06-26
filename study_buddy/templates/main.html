@@ -7,10 +7,16 @@
     <title>Study Buddy</title>
 </head>
 <body>
-    {% include 'navbar.html' %}
-    <hr>
-    {% block content %}
+    <div>
+        <div>
+            {% include 'navbar.html' %}
+        </div>
+            <hr>
+        <div>
+            {% block content %}
 
-    {% endblock %}
+            {% endblock %}  
+        </div>
+    </div>
 </body>
 </html>
