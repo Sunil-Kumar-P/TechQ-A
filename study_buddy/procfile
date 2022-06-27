@@ -1,0 +1,1 @@
+web: gunicorn study_buddy.wsgi --log-file -
