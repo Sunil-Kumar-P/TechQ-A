@@ -24,7 +24,7 @@ Change the directory
 Install the required libraries
 >pip install -r requirements.txt
 
-Then start the server
+Then start the development server
 >python manage.py runserver
 
 Then click on the server link displayed in the command prompt
