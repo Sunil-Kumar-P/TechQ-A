@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+<style>
+    .home-3colm {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+</style>
+
+
+<div class="home-3colm">
+    <div>
+        <a  href="{% url 'home' %}">ALL</a>
+        {% for topic in topics %}
+            <div>
+                <a  href="{% url 'home' %}?q={{topic.name}}" >{{topic.name}}</a>
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <h5>{{questions_count}} Questions avialable</h5>
+        <a href="{% url 'create-question' %}">Create question</a>
+
+        <div>
+            <hr>
+            {% for question in questions %}
+            <div>
+                <hr>
+
+                
+                <span>@{{question.host}}</span><br>
+                <a href="{% url 'update-question' question.id %}">Update question</a>
+                <a href="{% url 'delete-question' question.id %}">Delete question</a>
+                
+                <h5>{{question.id}} -----<a href="{% url 'question' question.id %}"> {{question.name}}</a> </h5>
+                <small>Topic: {{question.topic}} </small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div>
+
+    </div>
+
+    
+</div>
+
+
+{% endblock %}
