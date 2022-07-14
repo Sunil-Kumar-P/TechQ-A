@@ -1,5 +1,5 @@
 # 4semProject
-This Semisters project.
+This my 4th Semister project.
 
 Procedure  for Installation
 
