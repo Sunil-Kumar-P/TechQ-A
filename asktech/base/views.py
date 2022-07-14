@@ -1,10 +1,41 @@
+import email
+
+from urllib import request
+from django.shortcuts import render, redirect
+from django.shortcuts import HttpResponse
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from pickle import GET
 from django.db.models import Q
-from django.shortcuts import render, redirect
-from .models import Question, Topic
+from .models import Question, Topic, User
 from .forms import QuestionForm
 
 
+def loginPage(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+        except:
+            messages.error(request, 'User does not exist!')
+
+        user = authenticate(request, email=email, password=password)
+
+        if user is not None:
+            login(request,user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Username or Password does not exist!')
+
+    context = { }
+    return render(request, 'base/login_register.html',context)
+
+def logoutUser(resquest):
+    logout(request)
+    return redirect('home')
 
 #home page
 def home(request):
@@ -25,7 +56,7 @@ def question(request,pk):
     context =  {'questions':questions}
     return render(request,'base/question.html',context)
 
-
+@login_required(login_url='/login')
 def createQuestion(request):
     form = QuestionForm()
     if request.method == 'POST':
@@ -36,9 +67,13 @@ def createQuestion(request):
     context = {'form':form}
     return render(request, 'base/question_form.html', context)
 
+@login_required(login_url='/login')
 def updateQuestion(request, pk):
     question = Question.objects.get(id=pk)
     form = QuestionForm(instance=question)
+
+    if request.user != question.host:
+        return HttpResponse("Your not allowed here")
 
     if request.method == 'POST':
         form = QuestionForm(request.POST, instance=question)
@@ -49,7 +84,7 @@ def updateQuestion(request, pk):
     context = {'form':form}
     return render(request,'base/question_form.html',context)
 
-
+@login_required(login_url='/login')
 def deleteQuestion(request, pk):
     obj = Question.objects.get(id=pk)
     if request.method == 'POST':
