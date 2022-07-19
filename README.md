@@ -19,7 +19,7 @@ Activate the Virtual Environment
 >venv\scripts\activate
 
 Change the directory
->cd study_buddy
+>cd asktech
 
 Install the required libraries
 >pip install -r requirements.txt
