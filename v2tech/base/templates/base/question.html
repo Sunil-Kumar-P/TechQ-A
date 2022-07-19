@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<style>
+    .question-container {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
+
+<div class="question-container">
+
+    <div class="comment-wrapper">
+    <h1>{{question.name}}</h1> 
+    <h2> {{question.topic}} </h2>
+    <small> {{question.description}} </small>
+
+
+         <h3>Answers</h3>
+        <hr>
+        {% for answer in answers %}
+        <div>
+            {% if request.user == answer.user %}
+            <a href="{% url 'delete-answer' answer.id %}">Delete answer</a><br>
+             {% endif %}
+            <small>@{{answer.user}} {{answer.created|timesince}} ago</small>
+            
+        
+           
+            <p>{{answer.body}}</p>
+            <hr>
+        </div>
+        {% endfor %}
+
+        {% if request.user.is_authenticated %}
+        <div class="comment-form">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="body" placeholder="Enter your answers Here"/>
+            </form>
+        </div>
+    </div>
+        
+    <div>
+        <h3>Participants</h3>
+        <hr>
+        {% for user in participants %}
+        <div>
+            
+            <p>@{{user.username}}</p>
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}
