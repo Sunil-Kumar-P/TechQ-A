@@ -58,7 +58,7 @@
             </div>
 
             <a href="" class="nav-icon">
-                <i class="fab fa-stack-overflow"></i>
+                <!-- <i class="fab fa-stack-overflow"></i> -->
                 <a href="{% url 'home' %}" style="text-decoration: none; color: black;"><div class="nav-icon-text">FREE <span class="nav-bold-text">BE</span></a>
                 <!-- <div class="nav-icon-text">stack <span class="nav-bold-text">overflow</span> -->
 
@@ -106,7 +106,7 @@
                 <i class="fas fa-search"></i>
             </div>
             {% if user.is_authenticated %}
-                <a href="{% url 'login' %}" class="btn btn-login">Profile</a>
+                <a href="{% url 'profile' %}" class="btn btn-login">Profile</a>
                 <a href="{% url 'logout' %}" class="btn btn-register">Logout</a> 
             {% else %}
                 <a href="{% url 'login' %}" class="btn btn-login">Log in</a>

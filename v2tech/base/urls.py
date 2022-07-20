@@ -9,6 +9,8 @@ urlpatterns = [
     
     path('',views.home, name="home"),
     path('question-list',views.questionList, name="question-list"),
+    path('profile',views.profilePage, name="profile"),
+    path('profile-update',views.profilePageUpdate, name="profile-update"),
     path('question/<str:pk>/', views.question, name="question"),
     path('create-question/',views.createQuestion, name="create-question"),
     path('update-question/<str:pk>/',views.updateQuestion, name="update-question"),

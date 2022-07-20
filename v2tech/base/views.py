@@ -10,7 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from pickle import GET
 from django.db.models import Q
 from .models import Question, Topic, User, Answer
-from .forms import QuestionForm
+from .forms import QuestionForm,ProfileUpdateForm, UserUpdateForm
 
 
 def loginPage(request):
@@ -57,6 +57,37 @@ def registerUser(request):
             messages.error(request, 'An Error occured whlie user registration!')
 
     return render(request,'base/login_register.html', {'form':form})
+
+@login_required(login_url='/login')
+def profilePage(request):
+    
+    return render(request,'base/profile.html')
+
+@login_required(login_url='/login')
+def profilePageUpdate(request):
+    # form = ProfileForm
+    # if request.method == 'POST':
+    #     form = ProfileForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('profile')
+    # context = {'form':form}
+    if request.method == "POST":
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Acount Updated Successfully!')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+    return render(request,'base/profile_update.html', context)
 
 #home page
 def home(request):
