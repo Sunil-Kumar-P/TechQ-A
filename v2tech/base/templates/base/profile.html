@@ -197,7 +197,12 @@
                                             <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
                                             <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
                                         </ul>
+                                    </div>{% for question in questions %}
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600"></p>
+                                        <h6 class="text-muted f-w-400">{{question}}</h6>
                                     </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

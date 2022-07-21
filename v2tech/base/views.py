@@ -59,9 +59,11 @@ def registerUser(request):
     return render(request,'base/login_register.html', {'form':form})
 
 @login_required(login_url='/login')
-def profilePage(request):
-    
-    return render(request,'base/profile.html')
+def profilePage(request, pk):
+    user = User.objects.get(id=pk)
+    questions = user.question_set.all()
+    context = {'user':user, 'questions':questions}
+    return render(request,'base/profile.html', context)
 
 @login_required(login_url='/login')
 def profilePageUpdate(request):
