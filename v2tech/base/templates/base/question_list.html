@@ -92,8 +92,8 @@
                         <h3 id="fh3"><a href="{% url 'question' question.id %}">{{ question.name }}</a></h3>
                     </div>
                     <hr>
-                    {% if question.content|wordcount <= 10 %}
-                    <h6 id="fh6" style="text-align: left;">{{ question.name}}</h6>
+                    {% if question.description|wordcount <= 10 %}
+                    <h6 id="fh6" style="text-align: left;">{{ question.description}}</h6>
                     {% else %}
                     <h6 id="fh6" style="text-align: left;">{{ question.description|truncatewords:10}} <a href="{% url 'question' question.id %}">Read More</a></h6>
                     {% endif %}

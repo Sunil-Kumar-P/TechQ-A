@@ -1,7 +1,9 @@
+from audioop import reverse
 from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from ckeditor.fields import RichTextField
 # from django.contrib.auth.models import AbstractUser
 
 
@@ -22,7 +24,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.CharField(max_length=1000)
     phone = models.IntegerField(null=True, blank=True)
-    image = models.ImageField(default='default.jpg', upload_to="profile_pic")
+    image = models.ImageField(default='profile_pic\default_pic.png', upload_to="profile_pic")
 
     def __str__(self):
         return f'{self.user.username} - Profile'
@@ -64,9 +66,20 @@ class Question(models.Model):
 class Answer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    body = models.TextField()
+    name = models.CharField(max_length=1000,null=True)
+    body = RichTextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='answer_post', null=True)
 
     def __str__(self):
-        return self.body[0:50]
+        return '%s - %s' % (self.question.name, self.question.host)
+
+    def get_absolute_url(self):
+        return reverse('freebe:question-detail', kwargs={'pk':self.pk})
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        
+    def total_likes(self):
+        return self.likes.count()

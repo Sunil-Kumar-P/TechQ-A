@@ -85,9 +85,11 @@
                     <h3 id="fh3">{{question.name}}</h3>
                     <hr>
                     <h6 id="fh6">Topic: {{question.topic}}</h6>
+                    <h5 id="fh6">Description: {{question.description}}</h5>
                     <hr>
                     <h6 id="fh6" style="font-size: 10px; font-style: italic; color: rgb(155, 155, 155); text-align: right;">Asked By: <a href="">{{question.host.username}}</a>&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; On: {{ object.date_created|date:"j F, Y" }}</h6>
                     <br>
+
                         <!-- <form action="" method="POST">
                             {% csrf_token %}
                             {% if user.is_authenticated %}
@@ -169,7 +171,7 @@
                         {% endif %}
                     </form> --> -->
                     
-                    <a class="btn btn-outline-primary" id="fa" href="" style="text-decoration: none;">Answer Question</a>
+                    <a class="btn btn-outline-primary" id="fa" href="{% url 'question-answer' question.id %}" style="text-decoration: none;">Answer Question</a>
                     <a style="text-decoration: none; " class="btn btn-outline-success" href="">&#x270E;</a>
                     <a style="text-decoration: none; " class="btn btn-outline-danger" href="">&#x2716;</a>
                     <a style="text-decoration: none; " class="btn btn-outline-secondary" href="">&#x21a9;</a>

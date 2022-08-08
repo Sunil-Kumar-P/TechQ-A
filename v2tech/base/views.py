@@ -1,6 +1,9 @@
 # from urllib import request
+from audioop import reverse
 from pydoc import pager
 import re
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect 
 from django.shortcuts import HttpResponse
 from django.contrib import messages
@@ -10,7 +13,9 @@ from django.contrib.auth.forms import UserCreationForm
 from pickle import GET
 from django.db.models import Q
 from .models import Question, Topic, User, Answer
-from .forms import QuestionForm,ProfileUpdateForm, UserUpdateForm
+from .forms import QuestionForm,ProfileUpdateForm, UserUpdateForm, AnswerForm,UserRegisterForm
+from django.views.generic import CreateView
+from django.urls import reverse, reverse_lazy
 
 
 def loginPage(request):
@@ -43,20 +48,19 @@ def logoutUser(request):
     return redirect('home')
 
 def registerUser(request):
-    form = UserCreationForm()
-
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, 'An Error occured whlie user registration!')
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account Successfully created for {username}! Login In Now')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
 
-    return render(request,'base/login_register.html', {'form':form})
+    return render(request, 'base/login_register.html', {'form': form})
+
+
 
 @login_required(login_url='/login')
 def profilePage(request, pk):
@@ -65,15 +69,19 @@ def profilePage(request, pk):
     context = {'user':user, 'questions':questions}
     return render(request,'base/profile.html', context)
 
+@login_required
+def profile(request):
+        return render(request, 'stackusers/profile.html')
+
 @login_required(login_url='/login')
 def profilePageUpdate(request):
-    # form = ProfileForm
-    # if request.method == 'POST':
-    #     form = ProfileForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('profile')
-    # context = {'form':form}
+    form = ProfileUpdateForm
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    context = {'form':form}
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -90,6 +98,16 @@ def profilePageUpdate(request):
         'p_form': p_form
     }
     return render(request,'base/profile_update.html', context)
+    # user = request.user
+    # form = ProfileUpdateForm(instance=user)
+
+    # if request.method == 'POST':
+    #     form = ProfileUpdateForm(request.POST, request.FILES, instance=user)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('user-profile', pk=user.id)
+
+    # return render(request, 'base/update-user.html', {'form': form})
 
 #home page
 def home(request):
@@ -102,7 +120,7 @@ def home(request):
     topics = Topic.objects.all()
     questions_count = questions.count()
     context =  {'questions':questions, 'topics':topics,'questions_count':questions_count}
-    return render(request,'base/home.html',context)
+    return render(request,'base/question_list.html',context)
 
 def questionList(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
@@ -114,7 +132,7 @@ def questionList(request):
     topics = Topic.objects.all()
     questions_count = questions.count()
     context =  {'questions':questions, 'topics':topics,'questions_count':questions_count}
-    return render(request, 'base/question_list.html',context)
+    return render(request, 'base/home.html',context)
 
 #Question Creation page
 def question(request,pk):
@@ -137,13 +155,20 @@ def question(request,pk):
 @login_required(login_url='/login')
 def createQuestion(request):
     form = QuestionForm()
+    topics = Topic.objects.all()
     if request.method == 'POST':
-        form = QuestionForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    context = {'form':form}
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        Question.objects.create(
+            host=request.user,
+            topic=topic,
+            name=request.POST.get('name'),
+            description=request.POST.get('description'),
+        )
+        return redirect('home')
+    context = {'form':form,'topics': topics}
     return render(request, 'base/question_form.html', context)
+
 
 @login_required(login_url='/login')
 def updateQuestion(request, pk):
@@ -182,3 +207,26 @@ def deleteAnswer(request, pk):
         answer.delete()
         return redirect('home')
     return render(request,'base/delete.html', {'obj':answer})
+
+
+def like_view(request, pk):
+    post = get_object_or_404(Question, id=request.POST.get('answer_id'))
+    liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked = False
+    else:
+        post.likes.add(request.user)
+        liked = True
+    return HttpResponseRedirect(reverse('stackbase:question-detail', args=[str(pk)]))
+
+class AddAnswerView(CreateView):
+    model = Answer
+    form_class = Answer
+    
+    template_name = 'question-answer.html'
+
+    def form_valid(self, form):
+        form.instance.question_id = self.kwargs['pk']
+        return super().form_valid(form)
+    success_url = reverse_lazy('question-lists')

@@ -166,8 +166,8 @@
                                     <form action="" method="POST" enctype="multipart/form-data">
                     
                                         {% csrf_token %}
-                                        {{u_form|crispy}}
-                                        {{p_form|crispy}}
+                                        {{form|crispy}}
+                                        {{form|crispy}}
 
                                         <br>
                                         <button class="btn btn-success" id="logout-btn" type="submit">Update Profile</button>

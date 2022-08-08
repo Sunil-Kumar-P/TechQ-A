@@ -55,9 +55,9 @@
                 We build products that empower developers and connect them to solutions that enable productivity, growth, and discovery.
             </p>
             <div class="hero-options">
-                <a href="#" class="btn btn-developers">For developers</a>
-                <a href="#" class="btn btn-businesses">For businesses</a>
-                <a href="{% url 'question-list' %}" class="btn btn-developers" style="margin-left: 5px;">Latest Questions</a>
+                <!-- <a href="#" class="btn btn-developers">For developers</a>
+                <a href="#" class="btn btn-businesses">For businesses</a> -->
+                <a href="{% url 'questionlist' %}" class="btn btn-developers" style="margin-left: 5px;">Latest Questions</a>
     
             </div>
         </div>
@@ -85,7 +85,7 @@
                         <a href="#">Sign up</a> for an account.
                     </div>
                     <div class="option-button">
-                        <a href="{% url 'question-list' %}" class="option-link btn btn-dark-blue">
+                        <a href="{% url 'questionlist' %}" class="option-link btn btn-dark-blue">
                             Browse questions
                         </a>
                     </div>
@@ -123,7 +123,7 @@
                        <h4 class="question-item-content-text">
                            Accept the answer which solved your problem to let others benefit from the valuable information.
                        </h4>
-                       <a href="#" class="btn btn-orange question-item-content-btn">Create an account</a>
+                       <a href="{% url 'register' %}" class="btn btn-orange question-item-content-btn">Create an account</a>
                    </div>
                    <div class="questions-body-items">
                        <div class="questions-body-item"  data-id="3">
