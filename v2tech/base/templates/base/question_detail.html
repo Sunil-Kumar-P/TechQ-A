@@ -116,16 +116,16 @@
                         {% for answer in answers %}
                             <!-- <h3 style="font-weight: normal; font-size: 15px;">{{answer.user}} {{answer.created|timesince}}</h3>
                             <h3 style="font-size: 10px;">Answered by: <i><a href="">{{answer.user}}</a> - On: {{answer.created}}</i></h3> -->
-                            <form action="" method="POST">
+                            <form action="{% url 'like-post' %}" method="POST">
                                 {% csrf_token %}
                                 {% if user.is_authenticated %}
-                                    {% if liked %}
+                                    {% if user not in obj.liked.all %}
                                         <div style="display: flex; align-items: center; margin-left: 10px;">
-                                            <button type="submit" name="answer_id" value="{{ answer.id }}" style="border: none; border-radius: 60px;"><img src="https://image.similarpng.com/very-thumbnail/2020/06/Dislike-icon-transparent-PNG.png" alt="" style="width: 40px;"></button> <h5 style="margin-left: 10px; cursor: pointer;"> |  {{ total_likes }} Likes</h5>
+                                            <button type="submit" name="answer_id" value="{{ obj.id }}" style="border: none; border-radius: 60px;"><img src="https://image.similarpng.com/very-thumbnail/2020/06/Dislike-icon-transparent-PNG.png" alt="" style="width: 40px;"></button> <h5 style="margin-left: 10px; cursor: pointer;"> |  {{ total_likes }} Likes</h5>
                                         </div>
                                     {% else %}
                                         <div style="display: flex; align-items: center; margin-left: 10px;">
-                                            <button type="submit" name="answer_id" value="{{ answer.id }}" style="border: none; border-radius: 30px;"><img src="https://i.pinimg.com/originals/39/44/6c/39446caa52f53369b92bc97253d2b2f1.png" alt="" style="width: 40px;"></button> <h5 style="margin-left: 10px; cursor: pointer;"> |  {{ total_likes }} Likes</h5>
+                                            <button type="submit" name="answer_id" value="{{ obj.id }}" style="border: none; border-radius: 30px;"><img src="https://i.pinimg.com/originals/39/44/6c/39446caa52f53369b92bc97253d2b2f1.png" alt="" style="width: 40px;"></button> <h5 style="margin-left: 10px; cursor: pointer;"> |  {{ total_likes }} Likes</h5>
                                         </div>
                                     {% endif %}
                                 {% else %}
@@ -182,7 +182,7 @@
                             <input type="text" name="body" placeholder="Enter your answers Here"/>
                         </form>
                     </div>
-                    {% endif %}
+                    {% endif %}  
                 </div> <br><br>
                     <!-- Answer Section -->
                 

@@ -15,7 +15,8 @@ urlpatterns = [
     path('create-question/',views.createQuestion, name="create-question"),
     path('update-question/<str:pk>/',views.updateQuestion, name="update-question"),
     path('delete-question/<str:pk>/',views.deleteQuestion, name="delete-question"),
-    path('question/<int:pk>/comment/', views.AddAnswerView.as_view(), name="question-answer"),
+    path('questions/<int:pk>/comment/', views.AddAnswer, name="question-answer"),
     path('delete-answer/<str:pk>/',views.deleteAnswer, name="delete-answer"),
-    path('like/<int:pk>', views.like_view, name="like_post")
+    path('like/',views.Like_post,name = 'like-post')
+    # path('like/<int:pk>', views.like_view, name="like_post")
 ]

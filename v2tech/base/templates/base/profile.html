@@ -155,7 +155,7 @@
                                 <div class="col-sm-4 bg-c-lite-green user-profile">
                                     <div class="card-block text-center text-white">
                                         <div class="m-b-25"> <img src="{{ user.profile.image.url }}" class="img-radius" alt="User-Profile-Image"> </div>
-                                        <h6 class="f-w-600" style="font-size: 24px; color: black;"><!-- Add username here -->{{ user.username|title }}</h6>
+                                        <h6 class="f-w-600" style="font-size: 24px; color: black;"><!-- Add username here -->{{user.name}}</h6>
                                         <p style="font-size: 14px; color: black;"><!-- Add bio here -->{{ user.profile.bio|title }}</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                                         <div style="margin-top: 10px;">
                                             <button class="btn btn-primary" id="logout-btn"><a id="fa" href="{% url 'profile-update' %}" style="color: white; text-decoration: none;">Update Profile</a></button>

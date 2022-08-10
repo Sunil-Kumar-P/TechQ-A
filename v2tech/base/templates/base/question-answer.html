@@ -164,15 +164,24 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="card-block">
-                                        </div>
+                                    </div> 
+                                {% if request.user.is_authenticated %}
+                    
+                                    <form action="" method="POST">
+                                        {% csrf_token %}
+                                        <!-- <label for="room_name"> <h6>Answer</h6></label>
+                                        <input type="text" name="body" placeholder="Enter your answers Here"/><br> -->
                                         
-                                        <form action="" method="POST">
-                                            {% csrf_token %}
-                                            {{form|crispy}}
-                                            {{ form.media }}
-                                            <button class="btn btn-success" id="logout-btn" type="submit">Post Answer</button>
-                                            <a style="text-decoration: none; " class="btn btn-outline-secondary" href="">Cancel</a>
-                                        </form>
+                                        <label for="exampleFormControlTextarea1" class="form-label">Answer</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" name="body" rows="3"></textarea>
+                                        <button class="btn btn-success" type="submit">Post Answer</button>
+                                        <a style="text-decoration: none; " class="btn btn-outline-secondary" href="">Cancel</a>
+                                    </form>
+                                
+                                {% endif %} 
+                                       
+                                            
+                                        
 
 
                                         
