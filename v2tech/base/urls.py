@@ -7,8 +7,8 @@ urlpatterns = [
     path('logout/',views.logoutUser, name="logout"),
     path('register/',views.registerUser, name="register"),
     
-    path('',views.home, name="questionlist"),
-    path('home',views.questionList, name="home"),
+    path('',views.home, name="home"),
+    path('questionlist/',views.questionList, name="questionlist"),
     path('profile/<str:pk>',views.profilePage, name="profile"),
     path('profile-update',views.profilePageUpdate, name="profile-update"),
     path('question/<str:pk>/', views.question, name="question"),

@@ -112,18 +112,6 @@ def profilePageUpdate(request):
 
     # return render(request, 'base/update-user.html', {'form': form})
 
-#home page
-def home(request):
-    q = request.GET.get('q') if request.GET.get('q') != None else ''
-    questions = Question.objects.filter(
-        Q(topic__name__icontains=q) |
-        Q(name__icontains=q)|
-        Q(description__icontains=q)
-        )
-    topics = Topic.objects.all()
-    questions_count = questions.count()
-    context =  {'questions':questions, 'topics':topics,'questions_count':questions_count}
-    return render(request,'base/question_list.html',context)
 
 def questionList(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
@@ -135,7 +123,21 @@ def questionList(request):
     topics = Topic.objects.all()
     questions_count = questions.count()
     context =  {'questions':questions, 'topics':topics,'questions_count':questions_count}
-    return render(request, 'base/home.html',context)
+    return render(request, 'base/question_list.html',context)
+
+#home page
+def home(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    questions = Question.objects.filter(
+        Q(topic__name__icontains=q) |
+        Q(name__icontains=q)
+        # Q(description__icontains=q)
+        )
+    topics = Topic.objects.all()
+    questions_count = questions.count()
+    context =  {'questions':questions, 'topics':topics,'questions_count':questions_count}
+    return render(request,'base/home.html',context)
+
 
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
@@ -190,7 +192,7 @@ def createQuestion(request):
             name=request.POST.get('name'),
             description=request.POST.get('description'),
         )
-        return redirect('home')
+        return redirect('questionlist')
     context = {'form':form,'topics': topics}
     return render(request, 'base/question_form.html', context)
 
