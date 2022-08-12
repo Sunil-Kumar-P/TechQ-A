@@ -87,7 +87,7 @@
                     <h6 id="fh6">Topic: {{question.topic}}</h6>
                     <h5 id="fh6">Description: {{question.description}}</h5>
                     <hr>
-                    <h6 id="fh6" style="font-size: 10px; font-style: italic; color: rgb(155, 155, 155); text-align: right;">Asked By: <a href="">{{question.host.username}}</a>&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; On: {{ object.date_created|date:"j F, Y" }}</h6>
+                    <h6 id="fh6" style="font-size: 10px; font-style: italic; color: rgb(155, 155, 155); text-align: right;">Asked By: <a href="{% url 'profile' question.host.id %}">{{question.host.username}}</a>&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; On: {{ object.date_created|date:"j F, Y" }}</h6>
                     <br>
 
                         <!-- <form action="" method="POST">
@@ -118,7 +118,7 @@
                             <h3 style="font-size: 10px;">Answered by: <i><a href="">{{answer.user}}</a> - On: {{answer.created}}</i></h3> -->
                             <form action="{% url 'like-post' %}" method="POST">
                                 {% csrf_token %}
-                                {% if user.is_authenticated %}
+                                <!-- {% if user.is_authenticated %}
                                     {% if user not in obj.liked.all %}
                                         <div style="display: flex; align-items: center; margin-left: 10px;">
                                             <button type="submit" name="answer_id" value="{{ obj.id }}" style="border: none; border-radius: 60px;"><img src="https://image.similarpng.com/very-thumbnail/2020/06/Dislike-icon-transparent-PNG.png" alt="" style="width: 40px;"></button> <h5 style="margin-left: 10px; cursor: pointer;"> |  {{ total_likes }} Likes</h5>
@@ -131,7 +131,7 @@
                                 {% else %}
                                     <h5 style="margin-left: 10px; cursor: pointer;"><a href="{% url 'login' %}">Login</a> to Like Question |  {{ total_likes }} Likes</h5>
                                 {% endif %}
-    
+     -->
                             </form>
                             <h3 style="font-weight: normal; font-size: 15px;">{{answer.body}}</h3>
                             <h3 style="font-size: 10px;">Answered by: <i><a href="">{{answer.user}}</a> - {{answer.created|date:"j F, Y"}}</i></h3>

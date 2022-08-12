@@ -155,7 +155,7 @@
                         <div class="row m-l-0 m-r-0">
                             <div class="col-sm-4 bg-c-lite-green user-profile">
                                 <div class="card-block text-center text-white">
-                                    <div class="m-b-25"> <img src="" class="img-radius" alt="User-Profile-Image"> </div>
+                                    <div class="m-b-25"> <img src="{{ user_profile.image.url }}" class="img-radius" alt="User-Profile-Image"> </div>
                                     <h6 class="f-w-600" style="font-size: 24px; color: black;"></h6>
                                     <p style="font-size: 14px; color: black;"></p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                                 </div>
@@ -166,8 +166,14 @@
                                     <form action="" method="POST" enctype="multipart/form-data">
                     
                                         {% csrf_token %}
-                                        {{form|crispy}}
-                                        {{form|crispy}}
+                                        <!-- {{form|crispy}}
+                                        {{p_form|crispy}} -->
+                                        <label for="pic">pic</label>
+                                        <input type="file" name="image" placeholder="" value="{{ user_profile.image }}"><br>
+                                        <label for="Bio">Bio</label>
+                                        <textarea  name="bio" rows="3" cols="500"  value="{{ user_profile.bio }}"></textarea><br>
+                                        <label for="Phone">Phone</label>
+                                        <input type="text" name="phone" placeholder=""value="{{ user_profile.phone }}"><br>
 
                                         <br>
                                         <button class="btn btn-success" id="logout-btn" type="submit">Update Profile</button>

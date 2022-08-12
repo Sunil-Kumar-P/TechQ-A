@@ -62,7 +62,7 @@ class Question(models.Model):
         ordering = ['-updated', 'created']
 
     def __str__(self):
-        return self.name
+        return f'{self.name} - {self.host}'
 
 #Answers Module
 class Answer(models.Model):

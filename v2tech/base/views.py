@@ -67,58 +67,49 @@ def registerUser(request):
 
 @login_required(login_url='/login')
 def profilePage(request, pk):
+    user_profile =Profile.objects.get(user=request.user)
     user = User.objects.get(id=pk)
     questions = user.question_set.all()
-    context = {'user':user, 'questions':questions}
+    context = {'user':user, 'questions':questions, 'user_profile':user_profile}
     return render(request,'base/profile.html', context)
 
-@login_required
-def profile(request):
-        return render(request, 'stackusers/profile.html')
+
 
 @login_required(login_url='/login')
 def profilePageUpdate(request):
-    form = ProfileUpdateForm
+    user_profile =Profile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('profile')
-    context = {'form':form}
-    if request.method == "POST":
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            messages.success(request, f'Acount Updated Successfully!')
-            return redirect('profile')
-    else:
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-    context = {
-        'u_form': u_form,
-        'p_form': p_form
-    }
-    return render(request,'base/profile_update.html', context)
-    # user = request.user
-    # form = ProfileUpdateForm(instance=user)
 
-    # if request.method == 'POST':
-    #     form = ProfileUpdateForm(request.POST, request.FILES, instance=user)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('user-profile', pk=user.id)
+        if request.FILES.get('image') == None:
+            image = user_profile.image
+            bio = request.POST['bio']
+            phone = request.POST['phone']
 
-    # return render(request, 'base/update-user.html', {'form': form})
+            user_profile.image = image
+            user_profile.bio = bio
+            user_profile.phone = phone
+            user_profile.save()
+        if request.FILES.get('image') != None:
+            image = request.FILES.get('image')
+            bio = request.POST['bio']
+            phone = request.POST['phone']
+
+            user_profile.image = image
+            user_profile.bio = bio
+            user_profile.phone = phone
+            user_profile.save()
+
+        return redirect(f'profile/{user_profile.id_user}')
+
+
+    return render(request, 'base/profile_update.html', {'user_profile': user_profile})
 
 
 def questionList(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     questions = Question.objects.filter(
         Q(topic__name__icontains=q) |
-        Q(name__icontains=q)|
-        Q(description__icontains=q)
+        Q(name__icontains=q)
         )
     topics = Topic.objects.all()
     questions_count = questions.count()
@@ -142,7 +133,7 @@ def home(request):
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
     question = user.question_set.all()
-    question_answer = user.message_set.all()
+    question_answer = user.answer_set.all()
     topics = Topic.objects.all()
     context = {'user': user, 'question': question,
                'question_answer': question_answer, 'topics': topics}
