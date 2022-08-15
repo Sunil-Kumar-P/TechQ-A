@@ -118,6 +118,8 @@ def questionList(request):
 
 #home page
 def home(request):
+    users = Profile.objects.all()
+    users_count = users.count()
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     questions = Question.objects.filter(
         Q(topic__name__icontains=q) |
@@ -125,8 +127,8 @@ def home(request):
         # Q(description__icontains=q)
         )
     topics = Topic.objects.all()
-    questions_count = questions.count()
-    context =  {'questions':questions, 'topics':topics,'questions_count':questions_count}
+    # questions_count = questions.count()
+    context =  {'questions':questions, 'topics':topics,'users_count':users_count}
     return render(request,'base/home.html',context)
 
 
@@ -200,7 +202,7 @@ def updateQuestion(request, pk):
         form = QuestionForm(request.POST, instance=question)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('questionlist')
 
     context = {'form':form}
     return render(request,'base/question_form.html',context)
@@ -210,7 +212,7 @@ def deleteQuestion(request, pk):
     obj = Question.objects.get(id=pk)
     if request.method == 'POST':
         obj.delete()
-        return redirect('home')
+        return redirect('questionlist')
     return render(request,'base/delete.html', {'obj':obj})
 
 
@@ -223,7 +225,7 @@ def deleteAnswer(request, pk):
 
     if request.method == 'POST':
         answer.delete()
-        return redirect('home')
+        return redirect('questionlist')
     return render(request,'base/delete.html', {'obj':answer})
 
 

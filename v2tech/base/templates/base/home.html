@@ -50,7 +50,7 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">We <span></span> people who code</h1>
+            <h1 class="hero-title">We <span> {{users_count}} </span> people who code</h1>
             <p class="hero-paragraph">
                 We build products that empower developers and connect them to solutions that enable productivity, growth, and discovery.
             </p>
@@ -122,8 +122,12 @@
                        <img src="https://cdn.sstatic.net/Img/home/illo-feats-vote.svg?v=9d2eb0efdc17" alt="" class="question-item-content-img">
                        <h4 class="question-item-content-text">
                            Accept the answer which solved your problem to let others benefit from the valuable information.
-                       </h4>
+                       </h4> 
+                       {% if user.is_authenticated %}
+                       <a href="{% url 'questionlist' %}" class="btn btn-orange question-item-content-btn">Questions</a>
+                       {% else %}
                        <a href="{% url 'register' %}" class="btn btn-orange question-item-content-btn">Create an account</a>
+                       {% endif %}
                    </div>
                    <div class="questions-body-items">
                        <div class="questions-body-item"  data-id="3">

@@ -128,9 +128,23 @@
             <div class="questions">
                 {% for question in questions %}
                 <div class="container" style="background: linear-gradient(to right, rgb(255, 226, 182), rgba(255, 166, 0, 0.027)); padding: 5px; box-shadow: rgba(0, 0, 0, 0.383) 0px 5px 5px 0px; border-radius: 15px;" >
+                    <!-- {% if request.user == question.host %}
+                    <button class="btn btn-outline-secondary" id="fh6" style="" ><a href="{% url 'update-question' question.id %}">Update question</a></button>
+                    <button class="btn btn-outline-danger" ><a href="{% url 'delete-question' question.id %}">Delete question</a></button>
+                    {%endif %} -->
                     <div id="title-sec" style="display: flex; align-items: center;">
                         <!-- <a href=""><img src="" style="width: 50px;"></a></img> -->
                         <h3 id="fh3"><a href="{% url 'question' question.id %}">{{ question.name }}</a></h3>
+
+                <!-- {% if request.user == question.host %}
+                <button class="btn btn-outline-secondary" id="fh6" style="" ><a href="{% url 'update-question' question.id %}">Update question</a></button>
+                <button class="btn btn-outline-danger" ><a href="{% url 'delete-question' question.id %}">Delete question</a></button>
+                {%endif %} -->
+                <!-- <h6 id="fh6" style="font-size: 10px; font-style: italic; color: rgb(155, 155, 155);"><a href="{% url 'update-question' question.id %}">Update question</a></h6>
+                <h6 id="fh6" style="font-size: 10px; font-style: italic; color: rgb(155, 155, 155);"><a href="{% url 'delete-question' question.id %}">Delete question</a></h6> -->
+
+
+
                     </div>
                     <hr>
                     {% if question.description|wordcount <= 10 %}
