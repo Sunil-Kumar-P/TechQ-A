@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <style>
+        body{
+            margin-top: 100px;
+            font-family: 'Poppins', sans-serif;
+        }
+        #fh1{
+            margin-top: 20px;
+        }
+        #sub-nav{
+            display: flex;
+            justify-content: space-around;
+        }
+        #logout-btn{
+            background-color: rgb(50, 122, 255);
+        }
+        #fh3{
+            text-align: left;
+            font-size: 19px;
+            padding-top: 15px;
+        }
+        @media screen and (max-width: 600px) {
+            #fh3{
+                font-size: 15px;
+                text-align: left;
+            }
+        }
+        #fh6{
+            text-align: right;
+            font-size: 15px;
+            /* padding-bottom: 20px; */
+            font-weight: normal;
+        }
+        @media screen and (max-width: 600px) {
+            #fh6{
+                font-size: 15px;
+                text-align: right;
+                font-weight: normal;
+            }
+        }
+        #fh5{
+            display: flex;
+            justify-content: space-around;
+            text-align: left;
+            font-size: 13px;
+            padding-top: 3px;
+            width: 90px;
+            color: rgb(223, 223, 223);
+            height: 20px;
+            font-weight: normal;
+            background-color: rgb(158, 158, 158);
+            border-radius: 20px;
+            /* padding-top: 20px; */
+            /* background-color: blue; */
+        }
+        @media screen and (max-width: 600px) {
+            #fh5{
+                font-size: 10px;
+            }
+        }
+        a{
+            color: rgb(0, 132, 255);
+        }
+        a:hover{
+            text-decoration: none;
+            color: darkblue;
+            
+        }
+        h5{
+            color: rgb(133, 133, 133);
+        }
+
+        /* .home-3colm {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    } */
+    </style>
+
+<!-- <div class="search-container">
+    <i class="fas fa-search"></i>
+    <form method="GET" action="{% url 'questionlist' %}">
+        <input type="text" id="" name="q" placeholder="Search...">
+        <button type="submit" style="margin-left: 340px; border-radius: 25px; border: none; padding: 8px;">Search</button>
+    </form>
+</div> -->
+
+<!-- <div class="input-group">
+    <form method="GET" action="{% url 'questionlist' %}">
+    <input type="text" name="q" class="form-control rounded" placeholder="Search Topic " aria-label="Search" aria-describedby="search-addon" />
+   
+    </form>
+  </div>
+
+  <div class="list-question">
+    <h2>Questions available</h2>
+    <div class="questions"> -->
+     
+        <div class="container" style="background: linear-gradient(to right, rgb(255, 226, 182), rgba(255, 166, 0, 0.027)); padding: 50px; box-shadow: rgba(0, 0, 0, 0.383) 0px 5px 5px 0px; border-radius: 15px;" >
+<!-- 
+
+                <form method="GET" action="{% url 'questionlist' %}">
+                    <input type="text" name="q" class="form-control rounded" placeholder="Search Topic " aria-label="Search" aria-describedby="search-addon" />
+                    <button type="button" class="btn btn-outline-primary">Search</button>
+                    </form> -->
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <form method="GET" action="{% url 'topics' %}">
+                            <input type="text" id="" name="q" placeholder="Search...">
+                            <button type="submit" class="btn btn-outline-primary">Search</button>
+                            <!-- <button type="submit" style="margin-left: 340px; border-radius: 25px; border: none; padding: 8px;">Search</button> -->
+                        </form>
+                    </div>
+
+                  <div id="title-sec" style="display: flex; align-items: center;">
+                  {% for topic in topics %}
+                <div class="input-group">
+
+                  
+                <h3 id="fh3"><a href="{% url 'questionlist' %}?q={{topic.name}}">{{topic}}</a></h3>
+                {% endfor %}
+
+
+            </div>
+
+            </div>
+            <!-- <hr>
+      
+            <h6 id="fh6" style="text-align: left;"></h6>
+          
+            <h6 id="fh6" style="text-align: left;"><a href=""></a></h6> -->
+           
+            
+        </div> <br>
+
+    </div>
+</div>   
+
+        
+
+        
+        
+    
+
+{% endblock content %}

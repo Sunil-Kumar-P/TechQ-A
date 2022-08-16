@@ -119,30 +119,12 @@
                         <h3>No Answers yet... <a href="">Answer Question</a> </h3>
                     {% else %}
                         {% for answer in answers %}
-                            <!-- <h3 style="font-weight: normal; font-size: 15px;">{{answer.user}} {{answer.created|timesince}}</h3>
-                            <h3 style="font-size: 10px;">Answered by: <i><a href="">{{answer.user}}</a> - On: {{answer.created}}</i></h3> -->
-                            <!-- <form action="{% url 'like-post' %}" method="POST">
-                                {% csrf_token %} -->
-                                <!-- {% if user.is_authenticated %}
-                                    {% if user not in obj.liked.all %}
-                                        <div style="display: flex; align-items: center; margin-left: 10px;">
-                                            <button type="submit" name="answer_id" value="{{ obj.id }}" style="border: none; border-radius: 60px;"><img src="https://image.similarpng.com/very-thumbnail/2020/06/Dislike-icon-transparent-PNG.png" alt="" style="width: 40px;"></button> <h5 style="margin-left: 10px; cursor: pointer;"> |  {{ total_likes }} Likes</h5>
-                                        </div>
-                                    {% else %}
-                                        <div style="display: flex; align-items: center; margin-left: 10px;">
-                                            <button type="submit" name="answer_id" value="{{ obj.id }}" style="border: none; border-radius: 30px;"><img src="https://i.pinimg.com/originals/39/44/6c/39446caa52f53369b92bc97253d2b2f1.png" alt="" style="width: 40px;"></button> <h5 style="margin-left: 10px; cursor: pointer;"> |  {{ total_likes }} Likes</h5>
-                                        </div>
-                                    {% endif %}
-                                {% else %}
-                                    <h5 style="margin-left: 10px; cursor: pointer;"><a href="{% url 'login' %}">Login</a> to Like Question |  {{ total_likes }} Likes</h5>
-                                {% endif %}
-     -->
-                            <!-- </form> -->
+                     
                             {% if request.user == answer.user %}
                             <button class="btn btn-outline-danger btn-sm " style="font-size: 10px;" ><a href="{% url 'delete-answer' answer.id %}">Delete question</a></button>
                             {% endif %}
-                            <h3 style="font-weight: normal; font-size: 15px;">{{answer.body}}</h3>
-                            <h3 style="font-size: 10px;">Answered by: <i><a href="{% url 'profile' answer.user.id %}">{{answer.user}}</a> - {{answer.created|date:"j F, Y"}}</i></h3>
+                            <h2><a href="{% url 'profile' answer.user.id %}">{{answer.user}}-</a></h2>  <h3 style="font-weight: normal; font-size: 15px;">{{answer.body}}</h3>
+                            <h3 style="font-size: 10px;"> <i>- {{answer.created|date:"j F, Y"}}</i></h3>
                             <hr>  
                         {% endfor %}
                     {% endif %}

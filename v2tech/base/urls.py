@@ -17,6 +17,7 @@ urlpatterns = [
     path('delete-question/<str:pk>/',views.deleteQuestion, name="delete-question"),
     path('questions/<int:pk>/comment/', views.AddAnswer, name="question-answer"),
     path('delete-answer/<str:pk>/',views.deleteAnswer, name="delete-answer"),
-    path('like/',views.Like_post,name = 'like-post')
+    path('topics/', views.TopicsPage, name="topics"),
+    # path('like/',views.Like_post,name = 'like-post')
     # path('like/<int:pk>', views.like_view, name="like_post")
 ]

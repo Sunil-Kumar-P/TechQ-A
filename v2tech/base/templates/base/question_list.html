@@ -84,13 +84,16 @@
         <h1 id="fh1">Popular Topics</h1>
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <a id="fa" href="{% url 'questionlist' %}">
-                <label class="btn btn-outline-primary" for="btnradio1">ALL</label>
+                <label class="btn btn-outline-primary" for="btnradio1">ALL ({{topics.count}})</label>
             </a><br>
             {% for topic in topics %}
             <a id="fa" href="{% url 'questionlist' %}?q={{topic.name}}" >
-                <label class="btn btn-outline-primary" for="btnradio1">{{topic.name}}</label>
+                <label class="btn btn-outline-primary" for="btnradio1">{{topic.name}} ({{topic.question_set.all.count}})</label>
             </a>
             {% endfor %}
+            <a id="fa" href="{% url 'topics' %}">
+                <label class="btn btn-outline-primary" for="btnradio1">MORE ></label>
+            </a><br>
         </div>
         
         <div id="sub-nav">
@@ -103,45 +106,19 @@
             {% endif %}
         </div>
 
-        <!-- <div>
-             <button type="button" class="btn btn-light"><a id="fa" href="{% url 'questionlist' %}">ALL</a></button> 
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-           <input type="radio" class="btn-check" name="q" id="all" autocomplete="off" checked> 
-                \<a id="fa" href="{% url 'questionlist' %}">
-                <label class="btn btn-outline-primary" for="btnradio1">ALL</label>
-            </a><br>
-            {% for topic in topics %}
-        <input type="radio" class="btn-check" name="q" id="{{topic.id}}" autocomplete="off" checked> 
-            <a id="fa" href="{% url 'questionlist' %}?q={{topic.name}}" >
-                <label class="btn btn-outline-primary" for="btnradio1">{{topic.name}}</label>
-            </a>
-                
-                 <div>
-                    <button type="button" class="btn btn-light"><a id="fa" href="{% url 'questionlist' %}?q={{topic.name}}" >{{topic.name}}</a></button>
-                </div> 
-            {% endfor %}
-        </div> -->
-
+        
         
         <div class="list-question">
-            <h2>{{questions_count}} Questions avialable</h2>
+            <h2>{{questions_count}} Questions available</h2>
             <div class="questions">
                 {% for question in questions %}
                 <div class="container" style="background: linear-gradient(to right, rgb(255, 226, 182), rgba(255, 166, 0, 0.027)); padding: 5px; box-shadow: rgba(0, 0, 0, 0.383) 0px 5px 5px 0px; border-radius: 15px;" >
-                    <!-- {% if request.user == question.host %}
-                    <button class="btn btn-outline-secondary" id="fh6" style="" ><a href="{% url 'update-question' question.id %}">Update question</a></button>
-                    <button class="btn btn-outline-danger" ><a href="{% url 'delete-question' question.id %}">Delete question</a></button>
-                    {%endif %} -->
+        
                     <div id="title-sec" style="display: flex; align-items: center;">
-                        <!-- <a href=""><img src="" style="width: 50px;"></a></img> -->
+                    
                         <h3 id="fh3"><a href="{% url 'question' question.id %}">{{ question.name }}</a></h3>
 
-                <!-- {% if request.user == question.host %}
-                <button class="btn btn-outline-secondary" id="fh6" style="" ><a href="{% url 'update-question' question.id %}">Update question</a></button>
-                <button class="btn btn-outline-danger" ><a href="{% url 'delete-question' question.id %}">Delete question</a></button>
-                {%endif %} -->
-                <!-- <h6 id="fh6" style="font-size: 10px; font-style: italic; color: rgb(155, 155, 155);"><a href="{% url 'update-question' question.id %}">Update question</a></h6>
-                <h6 id="fh6" style="font-size: 10px; font-style: italic; color: rgb(155, 155, 155);"><a href="{% url 'delete-question' question.id %}">Delete question</a></h6> -->
+             
 
 
 

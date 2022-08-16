@@ -1,7 +1,9 @@
 # from urllib import request
 from audioop import reverse
 from pydoc import pager
+from pydoc_data.topics import topics
 import re
+from unicodedata import name
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect 
@@ -111,7 +113,7 @@ def questionList(request):
         Q(topic__name__icontains=q) |
         Q(name__icontains=q)
         )
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:5]
     questions_count = questions.count()
     context =  {'questions':questions, 'topics':topics,'questions_count':questions_count}
     return render(request, 'base/question_list.html',context)
@@ -194,17 +196,22 @@ def createQuestion(request):
 def updateQuestion(request, pk):
     question = Question.objects.get(id=pk)
     form = QuestionForm(instance=question)
+    topics = Topic.objects.all()
 
     if request.user != question.host:
         return HttpResponse("Your not allowed here")
 
     if request.method == 'POST':
-        form = QuestionForm(request.POST, instance=question)
-        if form.is_valid():
-            form.save()
-            return redirect('questionlist')
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        question.topic=topic
+        question.name=request.POST.get('name')
+        question.description=request.POST.get('description')
+        question.save()
 
-    context = {'form':form}
+        return redirect('questionlist')
+
+    context = {'form':form,'topics': topics,'question':question}
     return render(request,'base/question_form.html',context)
 
 @login_required(login_url='/login')
@@ -279,4 +286,9 @@ def AddAnswer(request,pk):
     context =  {'question':question, 'answers':answers, 'participants':participants}
     return render(request,'base/question-answer.html',context)
     
+def TopicsPage(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    topics = Topic.objects.filter(name__icontains=q)
+    return render(request,'base/topic.html',{'topics':topics})
+
     
