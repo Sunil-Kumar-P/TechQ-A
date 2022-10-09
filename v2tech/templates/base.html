@@ -8,7 +8,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Free Be- Where Developers Learn, Share, &amp; Build Careers</title>
-    <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196">
     <link rel="apple-touch-icon" href="https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon.png?v=c78bd457575a">
     <link rel="image_src" href="https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon.png?v=c78bd457575a">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -34,15 +33,15 @@
                     <div class="line"></div>
                 </div>
                 <div class="nav-dropdown-menu">
-                    <a href="#" class="current-link">Home</a>
+                    <a href="{% url 'home' %}" class="current-link">Home</a>
                     <h5>Public</h5>
                     <ul class="nav-ul">
                         <li class="nav-item">
                             <i class="fas fa-globe-europe"></i>
                             <a href="{% url 'questionlist' %}" class="nav-link">Questions</a>
                         </li>
-                        <!-- <li class="nav-item"><a href="#" class="nav-link">Tags</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Users</a></li> -->
+                        <li class="nav-item"><a href="{% url 'topics' %}" class="nav-link">Tags</a></li>
+                        {% comment %} <li class="nav-item"><a href="#" class="nav-link">Users</a></li>  {% endcomment %}
                     </ul>
                     <!-- <h5>Find a Job</h5>
                     <ul class="nav-ul">
@@ -60,7 +59,7 @@
             <a href="" class="nav-icon">
                 <!-- <i class="fab fa-stack-overflow"></i> -->
                 <a href="{% url 'home' %}" style="text-decoration: none; color: black;"><div class="nav-icon-text">FREE <span class="nav-bold-text">BE</span></a>
-                <!-- <div class="nav-icon-text">stack <span class="nav-bold-text">overflow</span> -->
+                <!-- <div class="nav-icon-text">fREE <span class="nav-bold-text">BE</span> -->
 
                 
                 <!-- </div> -->
@@ -69,7 +68,7 @@
         <div class="nav-base-links">
             <ul>
                 <li><a href="{% url 'questionlist' %}">Questions</a></li>
-                <!-- <li><a href="#">About Us</a></li> -->
+                <li><a href="{% url 'topics' %}">Tags</a></li> 
 
             </ul>
         </div>
@@ -86,12 +85,12 @@
                 <div class="search-hint-body">
                     <div class="hints-grid-column">
                         <div class="hint-text"><span>[tag] </span> search within a tag</div>
-                        <div class="hint-text"><span>user:1234 </span>  search by author</div>
+                        <div class="hint-text"><span>user </span>  search by author</div>
                         <div class="hint-text"><span>"words here"</span> exact phrase </div>
                     </div>
                     <div class="hints-grid-column">
-                        <div class="hint-text"><span>answers:0</span> unanswered questions</div>
-                        <div class="hint-text"><span> score:3  </span> posts with a 3+ score</div>
+                        
+                       
                     </div>
                 </div>
                 <div class="search-hint-footer">
@@ -103,7 +102,9 @@
         </div>
         <div class="nav-right-buttons">
             <div class="search-btn">
+                <a href="">
                 <i class="fas fa-search"></i>
+                </a>
             </div>
             {% if user.is_authenticated %}
                 <a href="{% url 'profile' user.id %}" class="btn btn-login">Profile</a>
@@ -129,11 +130,7 @@
         
 </header>
 
-<!-- Add block content here -->
-<!-- Add enbdblock content here -->
-<!-- <section>
-    {% include 'navbar.html' %}
-</section> -->
+
 
 <section>
 {% block content %}
@@ -141,41 +138,9 @@
 {% endblock content %}
 </section>
 
-<!-- <section class="jobs">
-    <div class="container">
 
-        <div class="jobs-content">
-            <h3 class="jobs-title">Looking for a job?</h3>
-            <div class="jobs-body">
-                    <div class="jobs-items">
-                        <div class="column">
-                            <div class="jobs-item">
-                                <img src="https://cdn.sstatic.net/Img/home/jobs-tech.svg?v=42f011c01763" alt="" class="jobs-item-img">
-                                <p class="jobs-item-description">Browse jobs by technology</p>
-                            </div>
-                            <div class="jobs-item">
-                                <img src="https://cdn.sstatic.net/Img/home/jobs-salary.svg?v=401840ff8931" alt="" class="jobs-item-img">
-                                <p class="jobs-item-description">Browse jobs by salary</p>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="jobs-item">
-                                <img src="https://cdn.sstatic.net/Img/home/jobs-visa.svg?v=1f3acc6dc772" alt="" class="jobs-item-img">
-                                <p class="jobs-item-description">Browse jobs by visa sponsorship</p>
-                            </div>
-                            <div class="jobs-item">
-                                <img src="https://cdn.sstatic.net/Img/home/jobs-remote.svg?v=a4b4d1b5a80c" alt="" class="jobs-item-img">
-                                <p class="jobs-item-description">Browse remote-friendly jobs</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="jobs-btn">
-                        <div class="btn btn-orange jobs-btn">View all jobs</div>
-                    </div>
-            </div>
-        </div>
-    </div>
-</section> -->
+                        
+             
 
 <footer class="footer">
     <img src="https://cdn.sstatic.net/Img/home/robot.svg?v=dfa16a330cbd" alt="" class="footer-robot-img">
@@ -189,95 +154,13 @@
                 <div class="footer-links-title"><a href="#">Free Be</a></div>
                 <ul class="footer-links">
                     <li class="footer-link-item"><a href="{% url 'questionlist' %}" class="footer-link">Questions</a></li>
-                    <!-- <li class="footer-link-item"><a href="#" class="footer-link">Jobs</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Developer Jobs Directory</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Salary Calculator</a></li> -->
-                    <!-- <li class="footer-link-item"><a href="#" class="footer-link">Help</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Mobile</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Disable Responsiveness</a></li> -->
                 </ul>
             </div>
-            <!-- <div class="footer-nav-col">
-                <div class="footer-links-title"><a href="#">Products</a></div>
-                <ul class="footer-links">
-                    <li class="footer-link-item"><a href="#" class="footer-link">Teams</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Talent</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Advertising</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Enterprise</a></li>
-                </ul>
-            </div> -->
-            <!-- <div class="footer-nav-col">
-                <div class="footer-links-title"><a href="#">Company</a></div>
-                <ul class="footer-links">
-                    <li class="footer-link-item"><a href="#" class="footer-link">About</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Press</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Work Here</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Legal</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Privacy Policy</a></li>
-                    <li class="footer-link-item"><a href="#" class="footer-link">Contact Us</a></li>
-                </ul>
-            </div> -->
-            <!-- <div class="footer-nav-col">
-                <div class="footer-links-title"><a href="#">Free Exchange Network</a></div> -->
-                <!-- <ul class="footer-links">
-                    <li class="footer-link-item">
-                        <a href="#" class="footer-link">Technology</a>
-                        <div class="footer-arrow-icon">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </li>
-                    <li class="footer-link-item">
-                        <a href="#" class="footer-link">Life / Arts</a>
-                        <div class="footer-arrow-icon">
-                            <i class="fas fa-chevron-right"></i>
-                        </div></li>
-                    <li class="footer-link-item">
-                        <a href="#" class="footer-link">Culture / Recreation</a>
-                        <div class="footer-arrow-icon">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </li>
-                    <li class="footer-link-item"> -->
-                        <!-- <a href="#" class="footer-link">Science</a>
-                        <div class="footer-arrow-icon">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </li>
-                    <li class="footer-link-item">
-                        <a href="#" class="footer-link">Other</a>
-                        <div class="footer-arrow-icon">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </li>
-                </ul> -->
-            <!-- </div> -->
-        <!-- </div> -->
-        <!-- <div class="footer-another-links">
-            <div class="social-media">
-                <ul>
-                    <li>
-                        <a href="#">Blog</a>
-                    </li>
-                    <li>
-                        <a href="#">Facebook</a>
-                    </li>
-                    <li>
-                        <a href="#">Twitter</a>
-                    </li>
-                    <li>
-                        <a href="#">LinkedIn</a>
-                    </li>
-                    <li>
-                        <a href="#">Instagram</a>
-                    </li>
-                </ul>
-            </div> -->
-            <div class="copyright">
+        </div> 
+        <div class="copyright">
              <p>Copyrights 2022</p>
-            </div>
         </div>
     </div>
-
 </div>
 </footer>
 

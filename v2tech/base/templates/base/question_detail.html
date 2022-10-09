@@ -90,9 +90,9 @@
                     <h3 id="fh3">{{question.name}}</h3>
                     <hr>
                     <h6 id="fh6">Topic: {{question.topic}}</h6>
-                    <h5 id="fh6">Description: {{question.description}}</h5>
+                    <h5 id="fh6">Description: {{question.description |safe}}</h5>
                     <hr>
-                    <h6 id="fh6" style="font-size: 10px; font-style: italic; color: rgb(155, 155, 155); text-align: right;">Asked By: <a href="{% url 'profile' question.host.id %}">{{question.host.username}}</a>&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; On: {{ object.date_created|date:"j F, Y" }}</h6>
+                    <h6 id="fh6" style="font-size: 10px; font-style: italic; color: rgb(155, 155, 155); text-align: right;">Asked By: <a href="{% url 'profile' question.host.id %}">{{question.host.username}}</a>&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; On: {{ question.created|date:"j F, Y" }}</h6>
                     <br>
 
                         <!-- <form action="" method="POST">
@@ -123,7 +123,8 @@
                             {% if request.user == answer.user %}
                             <button class="btn btn-outline-danger btn-sm " style="font-size: 10px;" ><a href="{% url 'delete-answer' answer.id %}">Delete question</a></button>
                             {% endif %}
-                            <h2><a href="{% url 'profile' answer.user.id %}">{{answer.user}}-</a></h2>  <h3 style="font-weight: normal; font-size: 15px;">{{answer.body}}</h3>
+                            <h2><a href="{% url 'profile' answer.user.id %}">{{answer.user}}-</a></h2>  
+                            <h3 style="font-weight: normal; font-size: 15px;">{{answer.body|safe}}</h3>
                             <h3 style="font-size: 10px;"> <i>- {{answer.created|date:"j F, Y"}}</i></h3>
                             <hr>  
                         {% endfor %}

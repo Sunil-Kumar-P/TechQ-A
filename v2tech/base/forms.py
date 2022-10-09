@@ -33,7 +33,7 @@ class ProfileUpdateForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
-        fields = ['name', 'body']
+        fields = ['body']
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control' }),

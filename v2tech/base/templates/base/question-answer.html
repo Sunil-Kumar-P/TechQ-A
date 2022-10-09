@@ -173,7 +173,9 @@
                                         <input type="text" name="body" placeholder="Enter your answers Here"/><br> -->
                                         
                                         <label for="exampleFormControlTextarea1" class="form-label">Answer</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" name="body" rows="3"></textarea>
+                                        {{form.media}}
+                                        {{form.as_p}}
+                                        {% comment %} <textarea class="form-control" id="exampleFormControlTextarea1" name="body" rows="3"></textarea> {% endcomment %}
                                         <button class="btn btn-success" type="submit">Post Answer</button>
                                         <a style="text-decoration: none; " class="btn btn-outline-secondary" href="">Cancel</a>
                                     </form>

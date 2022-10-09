@@ -84,7 +84,7 @@
         <h1 id="fh1">Popular Topics</h1>
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <a id="fa" href="{% url 'questionlist' %}">
-                <label class="btn btn-outline-primary" for="btnradio1">ALL ({{topics.count}})</label>
+                <label class="btn btn-outline-primary" for="btnradio1">ALL ({{questions.count}})</label>
             </a><br>
             {% for topic in topics %}
             <a id="fa" href="{% url 'questionlist' %}?q={{topic.name}}" >
@@ -127,7 +127,7 @@
                     {% if question.description|wordcount <= 10 %}
                     <h6 id="fh6" style="text-align: left;">{{ question.description}}</h6>
                     {% else %}
-                    <h6 id="fh6" style="text-align: left;">{{ question.description|truncatewords:10}} <a href="{% url 'question' question.id %}">Read More</a></h6>
+                    <h6 id="fh6" style="text-align: left;">{{ question.description |safe |truncatewords:10}} <a href="{% url 'question' question.id %}">Read More</a></h6>
                     {% endif %}
                     <h6 id="fh6" style="font-size: 10px; font-style: italic; color: rgb(155, 155, 155);">Asked By: <a href="{% url 'profile' question.host.id %}">{{ question.host.username }}</a>&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; On: {{question.created|date:"j F, Y"}}</h6>
                     <h5 style="text-align: right; font-size: 12px; font-style: italic;">Tags</h5>

@@ -108,23 +108,19 @@
                         <i class="fas fa-search"></i>
                         <form method="GET" action="{% url 'topics' %}">
                             <input type="text" id="" name="q" placeholder="Search...">
-                        </div>
-                            <button type="submit" class="btn btn-primary">Search</button>
+                            <button type="submit" class="btn btn-outline-primary">Search</button>
                             <!-- <button type="submit" style="margin-left: 340px; border-radius: 25px; border: none; padding: 8px;">Search</button> -->
                         </form>
-                    
+                    </div>
 
                   <div id="title-sec" style="display: flex; align-items: center;">
-                    <div class="input-group">
-                    <h3 id="fh3"><a href="{% url 'questionlist' %}">ALL ({{topics.count}})</a></h3> 
-                    
                   {% for topic in topics %}
-                  <div class="input-group">
+                <div class="input-group">
 
-                 
-                <h3 id="fh3"><a href="{% url 'questionlist' %}?q={{topic.name}}">{{topic}} ({{topic.question_set.all.count}})</a></h3>
+                  
+                <h3 id="fh3"><a href="{% url 'questionlist' %}?q={{topic.name}}">{{topic}}  ({{topic.question_set.all.count}})</a></h3>
                 {% endfor %}
-                  </div>
+
 
             </div>
 

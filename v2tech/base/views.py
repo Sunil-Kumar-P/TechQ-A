@@ -113,7 +113,7 @@ def questionList(request):
         Q(topic__name__icontains=q) |
         Q(name__icontains=q)
         )
-    topics = Topic.objects.all()[0:5]
+    topics = Topic.objects.all()[0:3]
     questions_count = questions.count()
     context =  {'questions':questions, 'topics':topics,'questions_count':questions_count}
     return render(request, 'base/question_list.html',context)
@@ -178,6 +178,7 @@ def question(request,pk):
 def createQuestion(request):
     form = QuestionForm()
     topics = Topic.objects.all()
+    
     if request.method == 'POST':
         topic_name = request.POST.get('topic')
         topic, created = Topic.objects.get_or_create(name=topic_name)
@@ -274,6 +275,7 @@ def AddAnswer(request,pk):
     question = Question.objects.get(id=pk)
     answers = question.answer_set.all().order_by('-created')
     participants = question.participants.all()
+    form = AnswerForm()
     if request.method == 'POST':
         answer = Answer.objects.create(
             user = request.user,
@@ -283,7 +285,7 @@ def AddAnswer(request,pk):
         question.participants.add(request.user)
         return redirect('question',pk=question.id)
 
-    context =  {'question':question, 'answers':answers, 'participants':participants}
+    context =  {'form':form, 'question':question, 'answers':answers, 'participants':participants}
     return render(request,'base/question-answer.html',context)
     
 def TopicsPage(request):

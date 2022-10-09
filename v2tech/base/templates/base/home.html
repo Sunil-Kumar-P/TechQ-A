@@ -2,61 +2,17 @@
 
 {% block content%}
 
-<!-- <style>
-    .home-3colm {
-        display: grid;
-        grid-template-columns: 1fr 3fr 1fr;
-    }
-</style> -->
 
-<!-- <div class="home-3colm">
-    <div>
-        <a  href="{% url 'home' %}">ALL</a>
-        {% for topic in topics %}
-            <div>
-                <a  href="{% url 'home' %}?q={{topic.name}}" >{{topic.name}}</a>
-            </div>
-        {% endfor %}
-    </div>
-    <div>
-        <h5>{{questions_count}} Questions avialable</h5>
-        <a href="{% url 'create-question' %}">Create question</a>
-
-        <div>
-            <hr>
-            {% for question in questions %}
-            <div>
-                <hr>
-                
-                {% if request.user == question.host %}
-                <a href="{% url 'update-question' question.id %}">Update question</a>
-                <a href="{% url 'delete-question' question.id %}">Delete question</a><br>
-                
-                {%endif %}
-
-                <span>@{{question.host.username}}</span><br>
-                <h5>{{question.id}} -----<a href="{% url 'question' question.id %}"> {{question.name}}</a> </h5>
-                <small>Topic: {{question.topic}} </small>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    <div>
-        <h3>Recent activity</h3>
-
-    </div>
-<div> -->
 
 
     <section class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">We <span> {{users_count}} </span> people who code</h1>
+            <h1 class="hero-title">We <span> {{users_count}}</span> people who code</h1>
             <p class="hero-paragraph">
                 We build products that empower developers and connect them to solutions that enable productivity, growth, and discovery.
             </p>
             <div class="hero-options">
-                <!-- <a href="#" class="btn btn-developers">For developers</a>
-                <a href="#" class="btn btn-businesses">For businesses</a> -->
+                
                 <a href="{% url 'questionlist' %}" class="btn btn-developers" style="margin-left: 5px;">Latest Questions</a>
     
             </div>
@@ -69,7 +25,7 @@
                 <h2 class="section-title">For developers, by developers
                 </h2>
                 <div class="section-line"></div>
-                <p class="section-description">Stack Overflow is an <a href="#">open community</a> for anyone that codes. We help you get answers to your toughest coding questions, share knowledge with your coworkers in private, and find your next dream job.
+                <p class="section-description">Stack Overflow is an open community for anyone that codes. We help you get answers to your toughest coding questions, share knowledge with your coworkers in private, and find your next dream job.
                 </p>
             </div>
             <div class="options">
@@ -82,7 +38,7 @@
                     </div>
                     <div class="option-description">
                         Get answers to more than 16.5 million questions and give back by sharing your knowledge with others.
-                        <a href="#">Sign up</a> for an account.
+                        <a href="{% url 'register' %}">Sign up</a> for an account.
                     </div>
                     <div class="option-button">
                         <a href="{% url 'questionlist' %}" class="option-link btn btn-dark-blue">
@@ -107,11 +63,11 @@
                            <div class="question-item-text">Ask a question</div>
                            <div class="question-arrow-right"></div>
                        </div>
-                       <div class="questions-body-item"  data-id="1">
+                       {% comment %} <div class="questions-body-item"  data-id="1">
                            <img src="https://cdn.sstatic.net/Img/home/votes.svg?v=748a8f48a8e2" alt="" class="question-item-icon">
                            <div class="question-item-text">Vote on everything</div>
                            <div class="question-arrow-right"></div>
-                       </div >
+                       </div > {% endcomment %}
                        <div class="questions-body-item"  data-id="2">
                            <img src="https://cdn.sstatic.net/Img/home/answer.svg?v=4cd8048a676c" alt="" class="question-item-icon">
                            <div class="question-item-text">Answer questions</div>
@@ -149,7 +105,7 @@
                </div>
                <div class="questions-footer">
                    <h3 class="question-title">Learn and grow with  FREE BE</h3>
-                   <div class="questions-grid">
+                   {% comment %} <div class="questions-grid">
                        <div class="questions-grid-item">
                            <div class="grid-item-img">
                                <img src="https://cdn.sstatic.net/Img/home/developer.svg?v=b930de7967a7" alt="">
@@ -190,7 +146,7 @@
                                Developer Story.
                            </p>
                        </div>
-                   </div>
+                   </div> {% endcomment %}
                </div>
            </div>
         </div>
