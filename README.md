@@ -29,5 +29,5 @@ Then start the development server
 
 Then click on the server link displayed in the command prompt
 
-###the live demo of the project
+### the live demo of the project
 https://techikart.pythonanywhere.com/
