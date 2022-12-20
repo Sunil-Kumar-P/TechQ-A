@@ -28,3 +28,6 @@ Then start the development server
 >python manage.py runserver
 
 Then click on the server link displayed in the command prompt
+
+###the live demo of the project
+https://techikart.pythonanywhere.com/
