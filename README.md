@@ -1,5 +1,12 @@
 # 4semProject
 This my 4th Semister project.
+This Project works similar to Stackoverflow But with Less Functionalities
+Users can Upload There questions and give a tag to it and If anyone know anything related to the question they will answer it.
+Users can search for question and answers. 
+
+Backend uses Django Framework
+Frontend uses HTML, CSS, JS, SASS
+
 
 Procedure  for Installation
 
