@@ -8,10 +8,10 @@ Backend uses Django Framework
 Frontend uses HTML, CSS, JS, SASS
 
 
-Procedure  for Installation
+## Procedure  for Installation
 
 Check if the python has been installed in the system.
-If not done download it from www.python.org
+If not done download it from www.python.org/download
 
 Open Command prompt
 Change the directory to the current directory
