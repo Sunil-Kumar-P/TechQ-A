@@ -28,6 +28,7 @@ jobs:
     - name: cd v2tech
       run: |
         cd v2tech
+        ls
     - name: Run Tests
       run: |
         python manage.py test
